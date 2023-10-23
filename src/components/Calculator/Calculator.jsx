@@ -18,6 +18,8 @@ class Calculator extends Component {
       this.setState({ input: result, result: '' });
     } else if (value === 'C') {
       this.setState({ input: '', result: '' });
+    } else if (value === '.' && this.state.input.includes('.')) {
+      return;
     } else {
       this.setState(prevState => ({ input: prevState.input + value }));
     }
@@ -27,7 +29,13 @@ class Calculator extends Component {
     return (
       <StyledCalculator>
         <input type="text" value={this.state.input} onChange={this.handleChange} readOnly />
+
         <div className="btns">
+          <div className="top-row">
+            <button className="clear-btn" onClick={() => this.handleClick('C')}>
+              C
+            </button>
+          </div>
           <button onClick={() => this.handleClick('7')}>7</button>
           <button onClick={() => this.handleClick('8')}>8</button>
           <button onClick={() => this.handleClick('9')}>9</button>
@@ -41,8 +49,8 @@ class Calculator extends Component {
           <button onClick={() => this.handleClick('3')}>3</button>
           <button onClick={() => this.handleClick('*')}>*</button>
           <button onClick={() => this.handleClick('0')}>0</button>
+          <button onClick={() => this.handleClick('.')}>.</button>
           <button onClick={() => this.handleClick('=')}>=</button>
-          <button onClick={() => this.handleClick('C')}>C</button>
           <button onClick={() => this.handleClick('/')}>/</button>
         </div>
 
