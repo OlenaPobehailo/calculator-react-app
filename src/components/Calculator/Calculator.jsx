@@ -1,82 +1,84 @@
-import { Component } from "react";
+import { useState } from "react";
 import * as math from "mathjs";
-import { StyledCalculator } from "./Calculator.styled";
+import {
+  Button,
+  ButtonsWrapper,
+  ClearButton,
+  Input,
+  StyledCalculator,
+  TopRow,
+} from "./Calculator.styled";
 
-class Calculator extends Component {
-  state = {
-    input: "",
-    result: "",
+const Calculator = () => {
+  const [input, setInput] = useState("");
+  const [, setResult] = useState("");
+
+  const handleChange = (event) => {
+    setInput(event.target.value);
   };
 
-  handleChange = (event) => {
-    this.setState({ input: event.target.value });
-  };
+  const handleClick = (value) => {
+    switch (value) {
+      case "=":
+        const result = math.evaluate(input);
+        setResult(result);
+        setInput(result.toString());
+        break;
 
-  handleClick = (value) => {
-    if (value === "=") {
-      const result = math.evaluate(this.state.input);
-      this.setState({ input: result, result: "" });
-    } else if (value === "C") {
-      this.setState({ input: "", result: "" });
-    } else if (value === "." && this.state.input.includes(".")) {
-      return;
-    } else {
-      this.setState((prevState) => ({ input: prevState.input + value }));
+      case "C":
+        setInput("");
+        setResult("");
+        break;
+
+      case ".":
+        if (!input.includes(".")) {
+          setInput((prevInput) => prevInput + value);
+        }
+        break;
+
+      default:
+        setInput((prev) => prev + value);
+
+        break;
     }
   };
 
-  render() {
-    const { input, result } = this.state;
+  const buttons = [
+    "7",
+    "8",
+    "9",
+    "+",
+    "4",
+    "5",
+    "6",
+    "-",
+    "1",
+    "2",
+    "3",
+    "*",
+    "0",
+    ".",
+    "=",
+    "/",
+  ];
 
-    const { handleClick } = this;
+  return (
+    <StyledCalculator>
+      <Input type="text" value={input} onChange={handleChange} readOnly />
 
-    const buttons = [
-      "7",
-      "8",
-      "9",
-      "+",
-      "4",
-      "5",
-      "6",
-      "-",
-      "1",
-      "2",
-      "3",
-      "*",
-      "0",
-      ".",
-      "=",
-      "/",
-    ];
+      <ButtonsWrapper>
+        <TopRow>
+          <ClearButton onClick={() => handleClick("C")}>C</ClearButton>
+        </TopRow>
 
-    return (
-      <StyledCalculator>
-        <input
-          type="text"
-          value={input}
-          onChange={this.handleChange}
-          readOnly
-        />
-
-        <div className="btns">
-          <div className="top-row">
-            <button className="clear-btn" onClick={() => handleClick("C")}>
-              C
-            </button>
-          </div>
-        
-            {buttons.map((button) => (
-              <button key={button} onClick={() => handleClick(button)}>
-                {button}
-              </button>
-            ))}
-          
-        </div>
-
-        <div className="result">{result}</div>
-      </StyledCalculator>
-    );
-  }
-}
+        {buttons.map((button) => (
+          <Button key={button} onClick={() => handleClick(button)}>
+            {button}
+          </Button>
+        ))}
+      </ButtonsWrapper>
+    </StyledCalculator>
+  );
+};
 
 export default Calculator;
