@@ -64,15 +64,29 @@ const Calculator = () => {
 
   return (
     <StyledCalculator>
-      <Input type="text" value={input} onChange={handleChange} readOnly />
+      <Input
+        type="text"
+        value={input}
+        onChange={handleChange}
+        readOnly role="textbox"
+        aria-label="Calculator Input" />
 
       <ButtonsWrapper>
         <TopRow>
-          <ClearButton onClick={() => handleClick("C")}>C</ClearButton>
+          <ClearButton
+            onClick={() => handleClick("C")}
+            role="button"
+            aria-label="Clear"
+            tabIndex="0">C</ClearButton>
         </TopRow>
 
         {buttons.map((button) => (
-          <Button key={button} onClick={() => handleClick(button)}>
+          <Button
+            key={button}
+            onClick={() => handleClick(button)}
+            role="button"
+            aria-label={button}
+            tabIndex="0">
             {button}
           </Button>
         ))}
