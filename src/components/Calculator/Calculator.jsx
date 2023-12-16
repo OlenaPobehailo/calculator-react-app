@@ -20,9 +20,11 @@ const Calculator = () => {
   const handleClick = (value) => {
     switch (value) {
       case "=":
-        const result = math.evaluate(input);
-        setResult(result);
-        setInput(result.toString());
+        if (input !== '') {
+          const result = math.evaluate(input);
+          setResult(result);
+          setInput(result.toString());
+        }
         break;
 
       case "C":
