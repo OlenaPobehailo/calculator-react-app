@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as math from "mathjs";
+import { evaluate }  from "mathjs";
 import {
   Button,
   ButtonsWrapper,
@@ -21,7 +21,7 @@ const Calculator = () => {
     switch (value) {
       case "=":
         if (input !== '') {
-          const result = math.evaluate(input);
+          const result = evaluate(input);
           setResult(result);
           setInput(result.toString());
         }
