@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import { StyledButton } from "./Button.styled";
 
-const Button = () => {
+const Button = ({ label, onClick }) => {
+  
   return (
-    <div>Button</div>
-  )
-}
+    <StyledButton
+      onClick={onClick}
+      role="button"
+      aria-label={label}
+      tabIndex="0"
+    >
+      {label}
+    </StyledButton>
+  );
+};
 
-export default Button
+export default Button;

@@ -8,7 +8,7 @@ export const ButtonsWrapper = styled.div`
   gap: 10px;
 `;
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   flex-basis: 20%;
   background-color: lightblue;
   color: #fff;
@@ -26,7 +26,7 @@ export const Button = styled.button`
   }
 `;
 
-export const ClearButton = styled(Button)`
+export const ClearButton = styled(StyledButton)`
   display: block;
   width: 63px;
   text-align: center;

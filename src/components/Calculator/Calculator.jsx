@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { evaluate }  from "mathjs";
+import { evaluate } from "mathjs";
 import {
-  Button,
   ButtonsWrapper,
-  ClearButton,
   Input,
   StyledCalculator,
   TopRow,
 } from "./Calculator.styled";
+import { ClearButton } from "components/Button/Button.styled";
+import Button from "components/Button";
 
 const Calculator = () => {
   const [input, setInput] = useState("");
@@ -20,7 +20,7 @@ const Calculator = () => {
   const handleClick = (value) => {
     switch (value) {
       case "=":
-        if (input !== '') {
+        if (input !== "") {
           const result = evaluate(input);
           setResult(result);
           setInput(result.toString());
@@ -70,8 +70,10 @@ const Calculator = () => {
         type="text"
         value={input}
         onChange={handleChange}
-        readOnly role="textbox"
-        aria-label="Calculator Input" />
+        readOnly
+        role="textbox"
+        aria-label="Calculator Input"
+      />
 
       <ButtonsWrapper>
         <TopRow>
@@ -79,16 +81,21 @@ const Calculator = () => {
             onClick={() => handleClick("C")}
             role="button"
             aria-label="Clear"
-            tabIndex="0">C</ClearButton>
+            tabIndex="0"
+          >
+            C
+          </ClearButton>
         </TopRow>
 
         {buttons.map((button) => (
           <Button
             key={button}
+            label={button}
             onClick={() => handleClick(button)}
             role="button"
             aria-label={button}
-            tabIndex="0">
+            tabIndex="0"
+          >
             {button}
           </Button>
         ))}
