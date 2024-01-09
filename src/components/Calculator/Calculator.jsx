@@ -21,9 +21,27 @@ const Calculator = () => {
     switch (value) {
       case "=":
         if (input !== "") {
-          const result = evaluate(input);
-          setResult(result);
-          setInput(result.toString());
+          try {
+            let result;
+
+            if (
+              input.charAt(input.length - 1) !== "+" &&
+              input.charAt(input.length - 1) !== "-" &&
+              input.charAt(input.length - 1) !== "*" &&
+              input.charAt(input.length - 1) !== "/"
+            ) {
+              result = evaluate(input);
+            } else {
+              result = evaluate(input.slice(0, -1));
+            }
+
+            setResult(result);
+            setInput(result.toString());
+          } catch (error) {
+            setResult("Error");
+            console.log("error");
+            setInput("");
+          }
         }
         break;
 
