@@ -45,6 +45,27 @@ const Calculator = () => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    const keyPressed = event.key;
+
+    switch (keyPressed) {
+      case "Enter":
+        event.preventDefault();
+        handleClick("=");
+        break;
+
+      case "Escape":
+        handleClick("C");
+        break;
+
+      default:
+        if (/^[0-9+\-*/.=/]$/.test(keyPressed)) {
+          handleClick(keyPressed);
+        }
+        break;
+    }
+  };
+
   const buttons = [
     "7",
     "8",
@@ -65,7 +86,7 @@ const Calculator = () => {
   ];
 
   return (
-    <StyledCalculator>
+    <StyledCalculator onKeyDown={handleKeyPress}>
       <Input
         type="text"
         value={input}
